@@ -1,6 +1,7 @@
 import re
+import os
 
-DEFUALT_PATH_FILE = r'E:\Hinevics\Dropbox\Programm\GitHub\parser-exr_file\CUBE___1312.exr'
+DEFUALT_PATH_FILE = r'D:\Development\Coding\parser-exr_file\CUBE___1312.exr'
 
 def search_comment(fb:bytes) -> str:
     comment = re.search(pattern=r'comment(?P<comment>.+)comments(?P<comments>.+)compression', string=str(fb))
@@ -14,11 +15,14 @@ def openfile(path:str=DEFUALT_PATH_FILE) -> bytes:
         r_0 = file.readline()
     return r_0
    
+def opendir():
+    print(os.listdir())
+   
 
 def main():
-    fb = openfile(path=DEFUALT_PATH_FILE)
-    search_comment(fb)
-
+    # fb = openfile(path=DEFUALT_PATH_FILE)
+    # search_comment(fb)
+    opendir()
 
 if __name__ == '__main__':
     main()
