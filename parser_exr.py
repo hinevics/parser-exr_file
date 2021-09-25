@@ -1,6 +1,5 @@
 from re import search
 from os import getcwd, listdir, rename
-import argparse
 
 def search_comment(fb:str) -> str:
     """
@@ -28,7 +27,7 @@ def opendir() -> list:
     else:
         print('Exr file not found!')
 
-def parser():
+def parser_exr():
     for fileexr in opendir():
         pathfile = r'{}\file\{}'.format(getcwd(), fileexr)
         fb = openfile(path=pathfile)
@@ -38,25 +37,18 @@ def parser():
         print('{} -> {}'.format(fileexr, comment))
 
 
-def parser_exr(arguments):
-    if arguments.command == 'start':
+def parser():
+    # Start request 
+    command = input('to start write "start" or "s": ')
+    if command in ['start', 's']:
         print('START')
-        parser()
+        parser_exr()
         print('END')
     else:
         print('error! restart. call the options "start"!')
         
-def set_parser(parser):
-    parser.add_argument("-c", '--command', help="This is the 'a' variable")
-    parser.set_defaults(callback=parser_exr)
-    
 def main():
-    parser = argparse.ArgumentParser(
-        description='This program (%(prog)s) creates an Inverted Index from a set of documents',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    set_parser(parser)
-    args = parser.parse_args()
-    args.callback(args)  # callback for branches
+    parser()
     
     
     
