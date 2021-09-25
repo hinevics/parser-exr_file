@@ -20,8 +20,7 @@ def opendir() -> list:
     """
     функция находит все файлы расширения exr в директории где находится скрипт
     """
-    print(os.listdir())
-    print([nf for nf in os.listdir() if re.search(pattern=r'.exr$', string=nf)])
+    yield [nf for nf in os.listdir() if re.search(pattern=r'.exr$', string=nf)]
 
 
 def main():
