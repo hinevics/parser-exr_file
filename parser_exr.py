@@ -1,6 +1,7 @@
 import re
 import os
 
+
 DEFUALT_PATH_FILE = r'D:\Development\Coding\parser-exr_file\CUBE___1312.exr'
 
 def search_comment(fb:bytes) -> str:
@@ -15,9 +16,13 @@ def openfile(path:str=DEFUALT_PATH_FILE) -> bytes:
         r_0 = file.readline()
     return r_0
    
-def opendir():
+def opendir() -> list:
+    """
+    функция находит все файлы расширения exr в директории где находится скрипт
+    """
     print(os.listdir())
-   
+    print([nf for nf in os.listdir() if re.search(pattern=r'.exr$', string=nf)])
+
 
 def main():
     # fb = openfile(path=DEFUALT_PATH_FILE)
