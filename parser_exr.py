@@ -28,14 +28,16 @@ def opendir() -> list:
     """
     for nf in os.listdir():
         if re.search(pattern=r'.exr$', string=nf):
-            yield '{a1}\{a2}'.format(a2=nf, a1=os.getcwd())
+            yield nf
 
 
 def main():
     for fileexr in opendir():
-        fb = openfile(path=fileexr)
-        newname = search_comment(fb=fb)
-        print(newname)
+        pathfile = r'{}\{}'.format(os.getcwd(), fileexr)
+        fb = openfile(path=pathfile)
+        comment = search_comment(fb=fb)
+        newname = r'{path}\{commet}'.format(path=os.getcwd(), commet=comment)
+        os.rename(src=pathfile, dst=newname)
     # os.rename(src='{}\{}', dst='\')
     # rename_file(path='{}\{}'.format(os.getcwd(), 'test.exr'), newname='{}\{}'.format(os.getcwd(), 'CUBE___1312.exr'))
     # rename_file(path=r'D:\Development\Coding\parser-exr_file\CUBE___1312.exr', newname=r'D:\Development\Coding\parser-exr_file\test.exr')
