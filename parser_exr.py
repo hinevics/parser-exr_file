@@ -5,7 +5,7 @@ def search_comment(fb:str) -> str:
     """
     name search
     """
-    return search(pattern=r'comment.+\\x00\\x00(?P<comment>.+)comments', string=fb).group('comment')
+    return search(pattern=r'comment.+(?P<comment>L.+)comments', string=fb).group('comment')
   
 def openfile(path:str) -> str:
     """
@@ -32,9 +32,10 @@ def parser_exr():
         pathfile = r'{}\file\{}'.format(getcwd(), fileexr)
         fb = openfile(path=pathfile)
         comment = search_comment(fb=fb)
-        newname = r'{path}\file\{commet}'.format(path=getcwd(), commet=comment)
-        rename(src=pathfile, dst=newname)
-        print('{} -> {}'.format(fileexr, comment))
+        print(comment)
+        # newname = r'{path}\file\{commet}.exr'.format(path=getcwd(), commet=comment)
+        # rename(src=pathfile, dst=newname)
+        # print('{} -> {}'.format(fileexr, comment))
 
 
 def parser():
