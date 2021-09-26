@@ -20,22 +20,25 @@ def opendir() -> list:
     the function finds all exr files in the directory where the script is located
     """
     fileexr = [nf for nf in listdir(path=r'{}\{}'.format(getcwd(), 'file'))
-               if search(pattern=r'.exr$', string=nf)]
+               if search(pattern=r'.exr$', string=nf) and (not search(pattern=r'^L', string=nf))]
     if fileexr:
         for nf in fileexr: 
             yield nf
     else:
         print('Exr file not found!')
 
+def search_number_file(path:str) -> str:
+    return search(pattern=r'_(?P<number_file>\d+).exr$', string=path).group('number_file')
+
 def parser_exr():
     for fileexr in opendir():
         pathfile = r'{}\file\{}'.format(getcwd(), fileexr)
         fb = openfile(path=pathfile)
         comment = search_comment(fb=fb)
-        print(comment)
-        # newname = r'{path}\file\{commet}.exr'.format(path=getcwd(), commet=comment)
-        # rename(src=pathfile, dst=newname)
-        # print('{} -> {}'.format(fileexr, comment))
+        number_file = search_number_file(path=pathfile)
+        newname = r'{path}\file\{commet}__{number_file}.exr'.format(path=getcwd(), commet=comment, number_file=number_file)
+        print('{} -> {}'.format(fileexr, comment))
+        rename(src=pathfile, dst=newname)
 
 
 def parser():
@@ -45,6 +48,8 @@ def parser():
         print('START')
         parser_exr()
         print('END')
+        input('Press Enter to finish')
+
     else:
         print('error! restart. call the options "start"!')
         
