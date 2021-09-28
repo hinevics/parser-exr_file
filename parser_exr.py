@@ -19,7 +19,7 @@ def opendir() -> list:
     """
     the function finds all exr files in the directory where the script is located
     """
-    fileexr = [nf for nf in listdir(path=r'{}\{}'.format(getcwd(), 'file'))
+    fileexr = [nf for nf in listdir(path=format(getcwd()))
                if search(pattern=r'.exr$', string=nf) and (not search(pattern=r'^L', string=nf))]
     if fileexr:
         for nf in fileexr: 
@@ -32,11 +32,11 @@ def search_number_file(path:str) -> str:
 
 def parser_exr():
     for fileexr in opendir():
-        pathfile = r'{}\file\{}'.format(getcwd(), fileexr)
+        pathfile = r'{}\{}'.format(getcwd(), fileexr)
         fb = openfile(path=pathfile)
         comment = search_comment(fb=fb)
         number_file = search_number_file(path=pathfile)
-        newname = r'{path}\file\{commet}__{number_file}.exr'.format(path=getcwd(), commet=comment, number_file=number_file)
+        newname = r'{path}\{commet}__{number_file}.exr'.format(path=getcwd(), commet=comment, number_file=number_file)
         print('{} -> {}'.format(fileexr, comment))
         rename(src=pathfile, dst=newname)
 
